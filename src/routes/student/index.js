@@ -6,10 +6,10 @@ studentRouter.get("/students", StudentController.getAll);
 
 studentRouter.post("/student", StudentController.create);
 
-studentRouter.get("/student/:name", StudentController.getSingle);
+studentRouter.get("/student/:id", StudentController.getSingle);
 
-studentRouter.put("/student/:name", StudentController.update);
+studentRouter.put("/student/:id", StudentController.update);
 
-studentRouter.delete("/student/:name", StudentController.delete);
+studentRouter.delete("/student/:id", StudentController.delete);
 
 export default studentRouter;
