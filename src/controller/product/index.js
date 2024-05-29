@@ -1,11 +1,26 @@
 import CategoryModel from "../../model/product/category.js";
 import ProductModel from "../../model/product/index.js";
-
+import { Op } from "sequelize";
 const ProductController = {
   getAll: async (req, res) => {
     try {
+      const { search } = req.query;
+
       const products = await ProductModel.findAll({
-        include: [{ model: CategoryModel, attributes: ["name"] }],
+        include: [
+          {
+            model: CategoryModel,
+            attributes: ["name"],
+            where: {
+              id: {
+                [Op.like]: `%${search}%`,
+              },
+              name: {
+                [Op.like]: `%${search}%`,
+              },
+            },
+          },
+        ],
       });
 
       res.json({
