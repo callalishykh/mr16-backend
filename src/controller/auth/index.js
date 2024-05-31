@@ -1,7 +1,8 @@
 import { compare, hash } from "bcrypt";
 import jwt from "jsonwebtoken";
+import TokenModel from "../../model/Auth/token.js";
 import UserModel from "../../model/user/index.js";
-
+import Joi from "joi";
 const AuthController = {
   signup: async (req, res) => {
     try {
@@ -32,7 +33,21 @@ const AuthController = {
   },
   signIn: async (req, res) => {
     try {
+      // const schema = Joi.object({
+      //   email: Joi.string().email().required(),
+      //   password: Joi.string().required(),
+      // });
+
       const { email, password } = req.body;
+
+      // const { value, error } = schema.validate(req.body);
+      // if (error) {
+      //   return res.status(400).json({
+      //     message: "Invalid data",
+      //     error,
+      //   });
+      // }
+
       let user = await UserModel.findOne({
         where: {
           email,
@@ -52,6 +67,10 @@ const AuthController = {
       console.log(user, "user");
       const token = jwt.sign(user, "asdbavsdasvd", {
         expiresIn: "1h",
+      });
+
+      await TokenModel.create({
+        token,
       });
 
       res.status(200).json({ data: user, token });

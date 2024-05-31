@@ -13,6 +13,7 @@ const students = [
 const StudentController = {
   getAll: async (req, res) => {
     try {
+      console.log(req.user, "req.user");
       const students = await StudentModel.findAll({
         where: {
           firstName: "Ali",

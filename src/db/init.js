@@ -1,3 +1,4 @@
+import TokenModel from "../model/Auth/token.js";
 import CategoryModel from "../model/product/category.js";
 import ProductModel from "../model/product/index.js";
 import SalesModel from "../model/sales/index.js";
@@ -11,6 +12,7 @@ const syncDB = async () => {
   await CategoryModel.sync({ alter: true, force: false });
   await ProductModel.sync({ alter: true, force: false });
   await UserModel.sync({ alter: true, force: false });
+  await TokenModel.sync({ alter: true, force: false });
 
   await StudentModel.sync({ alter: true, force: false });
   await SalesModel.sync({ alter: true, force: false });
